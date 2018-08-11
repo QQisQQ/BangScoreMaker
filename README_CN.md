@@ -3,7 +3,8 @@
 [![Licence](https://img.shields.io/badge/licence-MIT-blue.svg)](https://github.com/yp05327/BangScoreMaker/blob/master/LICENSE)
 [![Python](https://img.shields.io/badge/python-3.6-blue.svg)](https://github.com/yp05327/BangScoreMaker#)
 
-[Wnglish](https://github.com/yp05327/BangScoreMaker/blob/master/README.md)
+[English](https://github.com/yp05327/BangScoreMaker/blob/master/README.md)
+
 [日本語](https://github.com/yp05327/BangScoreMaker/blob/master/README_JP.md)
 
 # 介绍 

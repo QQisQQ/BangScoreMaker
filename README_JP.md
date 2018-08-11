@@ -4,6 +4,7 @@
 [![Python](https://img.shields.io/badge/python-3.6-blue.svg)](https://github.com/yp05327/BangScoreMaker#)
 
 [English](https://github.com/yp05327/BangScoreMaker/blob/master/README.md)
+
 [中文](https://github.com/yp05327/BangScoreMaker/blob/master/README_CN.md)
 
 # 紹介
