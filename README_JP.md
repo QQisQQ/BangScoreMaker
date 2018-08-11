@@ -51,8 +51,7 @@ note_skill.png
 ```shell
 python main.py (music score file's name)
 
-for example: if the music score file's name is 'yes_bang_dream_expert.txt',
-then
+例: 譜面ファイルの名前は「yes_bang_dream_expert.txt」だとしたら、
 python main.py yes_bang_dream_expert.txt
 ```
 
