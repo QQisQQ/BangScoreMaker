@@ -52,9 +52,7 @@ note_skill.png
 python main.py (music score file's name)
 
 for example: if the music score file's name is 'yes_bang_dream_expert.txt',
-
 then
-
 python main.py yes_bang_dream_expert.txt
 ```
 
