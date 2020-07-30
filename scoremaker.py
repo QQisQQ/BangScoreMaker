@@ -169,8 +169,6 @@ def create_image(music_info, note_info, music_score):
                                     (start_note[0] + note_image_width - unit_width - delta_unit_width, image_height - start_note[1])
                                 ]
                                 draw.polygon(green_slide_list, fill=(0, 255, 0, alpha))
-                                green_note_paste_list.append([note_long, (start_note[0] - unit_width - delta_unit_width, image_height - start_note[1] - int(note_image_height / 2)), long_a])
-                                green_note_paste_list.append([note_long, (end_note[0] - unit_width - delta_unit_width, image_height - end_note[1] - int(note_image_height / 2)), long_a])
 
                             # not new row
                             green_slide_list = [
@@ -363,10 +361,10 @@ def create_image(music_info, note_info, music_score):
 
                     green_note_paste_list.append([slide_image, (x, y), slide_mask])
 
-        # paste green note
-        for green_note in green_note_paste_list:
-            music_score_image.paste(green_note[0], green_note[1], green_note[2])
-
         last_unitid = unitid
+
+    # paste green note
+    for green_note in green_note_paste_list:
+        music_score_image.paste(green_note[0], green_note[1], green_note[2])
 
     return music_score_image
