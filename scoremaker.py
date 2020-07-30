@@ -198,7 +198,8 @@ def create_image(music_info, note_info, music_score):
                                 (end_note[0] + note_image_width - unit_width - delta_unit_width, image_top_bottom * 2 - image_height + end_note[1]),
                                 (start_note[0] + note_image_width, start_note[1])
                             ]
-                            draw.polygon(green_slide_list, fill=(0, 255, 0, alpha))
+                            
+                        draw.polygon(green_slide_list, fill=(0, 255, 0, alpha))
 
                         # del start note in the list
                         del polygon_list[type][slide_index_list[j]]
