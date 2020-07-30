@@ -11,41 +11,40 @@ delta_unit_width = 120
 image_left_right = 60
 image_top_bottom = 60
 unit_width = (note_image_width + delta_note_image_width * 2) * 7
-unit_height = int(note_image_height*(64+16))
+unit_height = int(note_image_height * (64 + 16))
 row_list = [6, 1, 2, 3, 4, 5, 8]
 
+#####  read resource  #####
+
+note_flick = Image.open("images/note_flick.png")
+note_flick = note_flick.resize((note_image_width, note_image_height), Image.ANTIALIAS)
+flick_r, flick_g, flick_b, flick_a = note_flick.split()
+
+note_long = Image.open("images/note_long.png")
+note_long = note_long.resize((note_image_width, note_image_height), Image.ANTIALIAS)
+long_r, long_g, long_b, long_a = note_long.split()
+
+note_normal = Image.open("images/note_normal.png")
+note_normal = note_normal.resize((note_image_width, note_image_height), Image.ANTIALIAS)
+normal_r, normal_g, normal_b, normal_a = note_normal.split()
+
+note_skill = Image.open("images/note_skill.png")
+note_skill = note_skill.resize((note_image_width, note_image_height), Image.ANTIALIAS)
+skill_r, skill_g, skill_b, skill_a = note_skill.split()
+
+
 def run(music_info, note_info, music_score):
-    note_flick, flick_a, note_long, long_a, note_normal, normal_a, note_skill, skill_a = read_note_resource()
-    score_image = create_image(music_info, note_info, music_score, note_flick, flick_a, note_long, long_a, note_normal, normal_a, note_skill, skill_a)
+    score_image = create_image(music_info, note_info, music_score, )
     return score_image
 
-#####  read resource  #####
-def read_note_resource():
-    note_flick = Image.open("images/note_flick.png")
-    note_flick = note_flick.resize((note_image_width, note_image_height), Image.LANCZOS)
-    flick_r, flick_g, flick_b, flick_a = note_flick.split()
-
-    note_long = Image.open("images/note_long.png")
-    note_long = note_long.resize((note_image_width, note_image_height), Image.LANCZOS)
-    long_r, long_g, long_b, long_a = note_long.split()
-
-    note_normal = Image.open("images/note_normal.png")
-    note_normal = note_normal.resize((note_image_width, note_image_height), Image.LANCZOS)
-    normal_r, normal_g, normal_b, normal_a = note_normal.split()
-
-    note_skill = Image.open("images/note_skill.png")
-    note_skill = note_skill.resize((note_image_width, note_image_height), Image.LANCZOS)
-    skill_r, skill_g, skill_b, skill_a = note_skill.split()
-
-    return note_flick, flick_a, note_long, long_a, note_normal, normal_a, note_skill, skill_a
 
 #####  create score image  ######
-def create_image(music_info, note_info, music_score, note_flick, flick_a, note_long, long_a, note_normal, normal_a, note_skill, skill_a):
+def create_image(music_info, note_info, music_score):
     total_unit = int(music_score[-1]['unitid'])
     music_info['combo'] = 0
 
     # create image
-    image_width = (int(total_unit/4)+1) * (unit_width + delta_unit_width)
+    image_width = (int(total_unit / 4) + 1) * (unit_width + delta_unit_width)
     image_height = 4 * unit_height + image_top_bottom * 2
     music_score_image = Image.new('RGB', (image_width, image_height), (0, 0, 0, 100))
 
@@ -53,10 +52,10 @@ def create_image(music_info, note_info, music_score, note_flick, flick_a, note_l
     draw = ImageDraw.Draw(music_score_image, 'RGBA')
     font = ImageFont.truetype(font="arial.ttf", size=30)
     big_line_list = []
-    for i in range((int(total_unit/4)+1)*2):
+    for i in range((int(total_unit / 4) + 1) * 2):
         x = image_left_right + i * (unit_width + delta_unit_width)
         # top left
-        big_line_list.append((x , -10))
+        big_line_list.append((x, -10))
         # bottom left
         big_line_list.append((x, image_height + 10))
         # bottom right
@@ -67,18 +66,17 @@ def create_image(music_info, note_info, music_score, note_flick, flick_a, note_l
         for j in range(6):
             small_line_list = []
             # small line i top
-            small_line_list.append((x + (j+1) * (note_image_width + delta_note_image_width * 2), -10))
+            small_line_list.append((x + (j + 1) * (note_image_width + delta_note_image_width * 2), -10))
             # small line i bottom
-            small_line_list.append((x + (j+1) * (note_image_width + delta_note_image_width * 2), image_height + 10))
+            small_line_list.append((x + (j + 1) * (note_image_width + delta_note_image_width * 2), image_height + 10))
             draw.line(small_line_list, fill=(255, 255, 255), width=1)
 
-    draw.line(big_line_list, fill = (137, 207, 240), width = 5)
-
+    draw.line(big_line_list, fill=(137, 207, 240), width=5)
 
     # drow unit lines and text
     for i in range(total_unit + 1):
-        x = image_left_right + int(i/4) * (unit_width + delta_unit_width)
-        y = image_height - (i%4) * unit_height - image_top_bottom
+        x = image_left_right + int(i / 4) * (unit_width + delta_unit_width)
+        y = image_height - (i % 4) * unit_height - image_top_bottom
         line_list = [(x, y), (x + unit_width, y)]
         draw.line(line_list, fill=(255, 255, 255), width=2)
         line_list = [(x, y - unit_height), (x + unit_width, y - unit_height)]
@@ -111,7 +109,7 @@ def create_image(music_info, note_info, music_score, note_flick, flick_a, note_l
             last_unitid = unitid
             continue
 
-        if last_unitid != unitid or unitid == total_unit:
+        if last_unitid != unitid or u == len(music_score):
             # sort polygon list
             a_index_list = sorted(polygon_list['a'])
             a_end_index_list = sorted(polygon_list['a_end'])
@@ -121,7 +119,7 @@ def create_image(music_info, note_info, music_score, note_flick, flick_a, note_l
             a_slide_index_list = sorted(a_index_list + a_end_index_list)
             b_slide_index_list = sorted(b_index_list + b_end_index_list)
 
-             # draw slide
+            # draw slide
             for type in ['a', 'b']:
                 if type == 'a':
                     slide_index_list = a_slide_index_list
@@ -155,9 +153,9 @@ def create_image(music_info, note_info, music_score, note_flick, flick_a, note_l
                             break
 
                         if j + 1 != end_note_index:
-                            end_note = polygon_list[type][slide_index_list[j+1]]
+                            end_note = polygon_list[type][slide_index_list[j + 1]]
                         else:
-                            end_note = polygon_list[type + '_end'][slide_index_list[j+1]]
+                            end_note = polygon_list[type + '_end'][slide_index_list[j + 1]]
                             slide_end = True
 
                         # check new row
@@ -171,8 +169,8 @@ def create_image(music_info, note_info, music_score, note_flick, flick_a, note_l
                                     (start_note[0] + note_image_width - unit_width - delta_unit_width, image_height - start_note[1])
                                 ]
                                 draw.polygon(green_slide_list, fill=(0, 255, 0, alpha))
-                                green_note_paste_list.append([note_long, (start_note[0] - unit_width - delta_unit_width, image_height - start_note[1] - int(note_image_height/2)),long_a])
-                                green_note_paste_list.append([note_long, (end_note[0] - unit_width - delta_unit_width,image_height - end_note[1] - int(note_image_height/2)),long_a])
+                                green_note_paste_list.append([note_long, (start_note[0] - unit_width - delta_unit_width, image_height - start_note[1] - int(note_image_height / 2)), long_a])
+                                green_note_paste_list.append([note_long, (end_note[0] - unit_width - delta_unit_width, image_height - end_note[1] - int(note_image_height / 2)), long_a])
 
                             # not new row
                             green_slide_list = [
@@ -186,12 +184,12 @@ def create_image(music_info, note_info, music_score, note_flick, flick_a, note_l
                             green_slide_list = [
                                 (start_note[0] + unit_width + delta_unit_width, image_height + start_note[1] - image_top_bottom * 2),
                                 (end_note[0], end_note[1]),
-                                (end_note[0] + note_image_width ,end_note[1]),
+                                (end_note[0] + note_image_width, end_note[1]),
                                 (start_note[0] + note_image_width + unit_width + delta_unit_width, image_height + start_note[1] - image_top_bottom * 2)
                             ]
                             draw.polygon(green_slide_list, fill=(0, 255, 0, alpha))
 
-                            green_note_paste_list.append([note_long, (end_note[0] - unit_width - delta_unit_width,image_height - end_note[1] - int(note_image_height / 2)), long_a])
+                            green_note_paste_list.append([note_long, (end_note[0] - unit_width - delta_unit_width, image_height - end_note[1] - int(note_image_height / 2)), long_a])
 
                             # new row
                             green_slide_list = [
@@ -206,8 +204,10 @@ def create_image(music_info, note_info, music_score, note_flick, flick_a, note_l
                         # del start note in the list
                         del polygon_list[type][slide_index_list[j]]
                         if slide_end:
-                            del polygon_list[type + '_end'][slide_index_list[j+1]]
+                            del polygon_list[type + '_end'][slide_index_list[j + 1]]
                             break
+
+                    start_note_index = end_note_index + 1
 
         if u == len(music_score):
             break
@@ -259,7 +259,7 @@ def create_image(music_info, note_info, music_score, note_flick, flick_a, note_l
                         if len(info) == 2:
                             # start
                             slide_type = info[1]
-                            polygon_list[slide_type][note_in_unit_location * delta_row + unitid * unit_height] = [x, y + int(note_image_height/2)]
+                            polygon_list[slide_type][note_in_unit_location * delta_row + unitid * unit_height] = [x, y + int(note_image_height / 2)]
 
                         elif len(info) == 3:
                             # end
@@ -330,7 +330,7 @@ def create_image(music_info, note_info, music_score, note_flick, flick_a, note_l
                                     (line_slide_position[0] + note_image_width, line_slide_position[1])
                                 ]
                                 draw.polygon(green_slide_list, fill=(0, 255, 0, alpha))
-                                green_note_paste_list.append([note_long, (x  - unit_width - delta_unit_width, image_height - y - note_image_height), long_a])
+                                green_note_paste_list.append([note_long, (x - unit_width - delta_unit_width, image_height - y - note_image_height), long_a])
                                 # draw bottom
                                 line_slide_end_position = [x, y - int(note_image_height / 2)]
                                 green_slide_list = [

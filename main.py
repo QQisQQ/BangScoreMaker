@@ -10,7 +10,7 @@ music_info_key_word = {
 }
 #####  read file  ######
 def read_file(file_name):
-    file_object = open('musicscore/' + file_name,'rU')
+    file_object = open('musicscore/' + file_name,'r')
 
     music_info = {}
     note_info = {}
