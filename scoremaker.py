@@ -74,7 +74,7 @@ def create_image(music_info, note_info, music_score):
     draw.line(big_line_list, fill=(137, 207, 240), width=5)
 
     # drow unit lines and text
-    for i in range(total_unit + 1):
+    for i in range(total_unit + 2):
         x = image_left_right + int(i / 4) * (unit_width + delta_unit_width)
         y = image_height - (i % 4) * unit_height - image_top_bottom
         line_list = [(x, y), (x + unit_width, y)]
@@ -83,7 +83,10 @@ def create_image(music_info, note_info, music_score):
         draw.line(line_list, fill=(255, 255, 255), width=2)
 
         text_size = font.getsize(str(i))
-        draw.text((x - text_size[0] - 5, y), str(i), font=font, fill=(255, 255, 255))
+        draw.text((x - text_size[0] - 5, y - 16), str(i), font=font, fill=(255, 255, 255))
+
+        if i % 4 == 0:
+            draw.text((x - text_size[0] - unit_width - delta_unit_width - 5, image_top_bottom - 16), str(i), font=font, fill=(255, 255, 255))
 
     polygon_list = {
         'a': {},
@@ -110,6 +113,22 @@ def create_image(music_info, note_info, music_score):
             continue
 
         if last_unitid != unitid or u == len(music_score):
+            # draw combo
+            if u == len(music_score):
+                tempunitid = unitid + 1
+            else:
+                tempunitid = unitid
+
+            x = image_left_right + int(tempunitid / 4) * (unit_width + delta_unit_width)
+            y = image_height - (tempunitid % 4) * unit_height - image_top_bottom
+
+            text_size = font.getsize(str(music_info['combo']))
+            draw.text((x - text_size[0] - 5, y + 16), str(music_info['combo']), font=font, fill=(255, 255, 255))
+
+            if tempunitid % 4 == 0:
+                text_size = font.getsize(str(music_info['combo']))
+                draw.text((x - text_size[0] - unit_width - delta_unit_width - 5, image_top_bottom + 16), str(music_info['combo']), font=font, fill=(255, 255, 255))
+
             # sort polygon list
             a_index_list = sorted(polygon_list['a'])
             a_end_index_list = sorted(polygon_list['a_end'])
@@ -189,7 +208,8 @@ def create_image(music_info, note_info, music_score):
                             ]
                             draw.polygon(green_slide_list, fill=(0, 255, 0, alpha))
 
-                            green_note_paste_list.append([note_long, (end_note[0] - unit_width - delta_unit_width, image_top_bottom * 2 - image_height + end_note[1] - int(note_image_height / 2)), long_a])
+                            green_note_paste_list.append(
+                                [note_long, (end_note[0] - unit_width - delta_unit_width, image_top_bottom * 2 - image_height + end_note[1] - int(note_image_height / 2)), long_a])
 
                             # new row
                             green_slide_list = [
@@ -198,7 +218,7 @@ def create_image(music_info, note_info, music_score):
                                 (end_note[0] + note_image_width - unit_width - delta_unit_width, image_top_bottom * 2 - image_height + end_note[1]),
                                 (start_note[0] + note_image_width, start_note[1])
                             ]
-                            
+
                         draw.polygon(green_slide_list, fill=(0, 255, 0, alpha))
 
                         # del start note in the list
@@ -225,6 +245,7 @@ def create_image(music_info, note_info, music_score):
                     continue
                 elif note in note_info:
                     music_info['combo'] += 1
+
                     # get paste point
                     unit_location = (image_left_right + int(unitid / 4) * (unit_width + delta_unit_width),
                                      image_height - unitid % 4 * unit_height - image_top_bottom)
@@ -291,6 +312,7 @@ def create_image(music_info, note_info, music_score):
                 if note == '00':
                     continue
                 elif note in note_info:
+                    music_info['combo'] += 1
                     # get paste point
                     unit_location = (image_left_right + int(unitid / 4) * (unit_width + delta_unit_width), image_height - unitid % 4 * unit_height - image_top_bottom)
                     x = unit_location[0] + row_list.index(row) * (note_image_width + delta_note_image_width * 2) + delta_note_image_width
