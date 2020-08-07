@@ -1,5 +1,9 @@
 ## Update Record
 
+# 2020-08-07
+* Fixed a bug: some music score with no id(based on command '#WAV01') will get exception
+* Fixed a drawing bug of line slide (type 5)
+
 # 2020-08-01
 * Add combo
 
