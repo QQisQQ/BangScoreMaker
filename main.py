@@ -51,7 +51,11 @@ def read_file(file_name):
                         'list': info.group(4),
                     })
     finally:
-         file_object.close()
+        for key_word in music_info_key_word:
+            if key_word not in music_info:
+                music_info[key_word] = 'No info'
+
+        file_object.close()
 
     return music_info, note_info, music_score
 
