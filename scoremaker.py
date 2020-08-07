@@ -352,7 +352,6 @@ def create_image(music_info, note_info, music_score):
                                     (line_slide_position[0] + note_image_width, line_slide_position[1])
                                 ]
                                 draw.polygon(green_slide_list, fill=(0, 255, 0, alpha))
-                                green_note_paste_list.append([note_long, (x - unit_width - delta_unit_width, image_height - y - note_image_height), long_a])
 
                                 # draw bottom
                                 line_slide_end_position = [x, y - int(note_image_height / 2)]
