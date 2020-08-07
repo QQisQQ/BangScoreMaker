@@ -341,10 +341,10 @@ def create_image(music_info, note_info, music_score):
                         new_slide_start_note = True
                         for line_slide_position in line_slide_positions:
                             # check new row
-                            if unitid % 4 == 0 and line_slide_position[0] == x - unit_width - delta_unit_width:
+                            if line_slide_position[0] == x - unit_width - delta_unit_width:
                                 new_slide_start_note = False
                                 # draw top
-                                line_slide_end_position = [x - unit_width - delta_unit_width, image_height - y - int(note_image_height / 2)]
+                                line_slide_end_position = [x - unit_width - delta_unit_width, y + image_top_bottom * 2 - image_height + int(note_image_height / 2)]
                                 green_slide_list = [
                                     (line_slide_position[0], line_slide_position[1]),
                                     (line_slide_end_position[0], line_slide_end_position[1]),
