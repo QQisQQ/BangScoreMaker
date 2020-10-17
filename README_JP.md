@@ -8,7 +8,7 @@
 [中文](https://github.com/yp05327/BangScoreMaker/blob/master/README_CN.md)
 
 # 紹介
-これは Bang Dream! のため、作ったツールです。今そのツールの一部分が完成された。いいアイデアがあって、私に伝えたいなら、[ここ](https://github.com/yp05327/BangScoreMaker/issues)でissuesを追加してください。
+これは Bang Dream! のため、作ったツールです。今そのツールの一部分が完成された。いいアイデアがあれば、[ここ](https://github.com/yp05327/BangScoreMaker/issues)でissuesを追加してください。
 
 完成した機能：
  ```
@@ -33,9 +33,9 @@ pip3 install -r requirements.txt
 
 2、ソースコードをダウンロードする。
 
-3、譜面ファイルを「musiccore」フォルダ（Folder。MARKDOWNなので、日本語は少し変になる）に入れる。
+3、譜面ファイルを「musiccore」フォルダにに置く。
 
-*4、テクスチャファイルを「images」。フォルダ（Folder）に入れる
+*4、テクスチャファイルを「images」フォルダに置く。
 
 ここで4タイプのノートがある：
 
@@ -46,7 +46,7 @@ note_normal.png
 note_skill.png
 ```
 
-5、コンソールでソースコードのフォルダ（Folder）で、実行する：
+5、コンソールでソースコードのフォルダで実行する：
 
 ```shell
 python main.py (music score file's name)
